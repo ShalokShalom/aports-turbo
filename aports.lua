@@ -140,7 +140,6 @@ function flagRenderer:post(branch, repo, origin, version)
         if is_valid_email(pkg.memail) then
             cntrl:flagMail(args, pkg)
         end
-        cntrl:clearCache()
         m.alert = {type="success",msg="Succesfully flagged package"}
         self:write(cntrl:package(pkg, m))
     end
@@ -167,6 +166,11 @@ function flaggedRenderer:get()
     self:write(cntrl:flagged(args))
 end
 
+function cleanup(loop)
+    turbo.log.notice("Stopping application.")
+    loop:close()
+end
+
 turbo.web.Application({
     {"^/$", turbo.web.RedirectHandler, "/packages"},
     {"^/contents$", contentsRenderer},
@@ -177,6 +181,7 @@ turbo.web.Application({
     {"^/assets/(.*)$", turbo.web.StaticFileHandler, "assets/"},
     {"^/robots.txt", turbo.web.StaticFileHandler, "assets/robots.txt"},
 }):listen(conf.port)
-cntrl:clearCache()
 local loop = turbo.ioloop.instance()
+loop:add_signal_handler(2, cleanup, loop)
+loop:add_signal_handler(15, cleanup, loop)
 loop:start()
