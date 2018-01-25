@@ -2,7 +2,7 @@ local config = {}
 ----
 -- the application uri
 ----
-config.uri = "http://pkgs.alpinelinux.org"
+config.uri = "http://kaosx.tk/packages/"
 ----
 -- Turbo listening port
 -- can be overridden by setting the env var TURBO_PORT
@@ -11,9 +11,9 @@ config.port = 8080
 ----
 -- set the branches,repos,archs you want to include
 ----
-config.branches = {"latest-stable", "edge"}
-config.repos = {"main", "community", "testing"}
-config.archs  = {"x86", "x86_64", "armhf"}
+config.branches = {"rolling"}
+config.repos = {"core", "main", "apps", "build"}
+config.archs  = {"x86_64"}
 ----
 -- apk-tools index fields
 ----
@@ -46,13 +46,13 @@ config.default.arch = "x86_64"
 ----
 -- location of the mirror on disk
 ----
-config.mirror = "/media/mirror/alpine"
+config.mirror = "/path/to/the/mirror"
 ----
 -- database settings
 ----
 config.db = {}
 -- initialize database (create tables)
-config.db.init = false
+config.db.init = true
 -- path to the sqlite db
 config.db.path = "db"
 -- multi value db fields
@@ -93,15 +93,15 @@ config.git = {}
 ----
 -- url to alpine git browser
 ----
-config.git.commit = "http://git.alpinelinux.org/cgit/aports/commit/?id=%s"
+config.git.commit = "?id=%s"
 ----
 -- url to the git repo direcotry
 ----
-config.git.pkgpath = "http://git.alpinelinux.org/cgit/aports/tree/%s/%s?h=%s"
+config.git.pkgpath = "/%s/%s?h=%s"
 ----
 -- url to the build log
 ----
-config.buildlog = "http://build.alpinelinux.org/buildlogs/build-%s-%s/%s/%s/%s-%s.log"
+config.buildlog = "build-%s-%s/%s/%s/%s-%s.log"
 ----
 -- directory where views are stored
 ----
